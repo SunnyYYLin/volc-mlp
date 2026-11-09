@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "volc-mlp"
+version = "0.2.0"
+description = "Intelligent Multi-Queue Dynamic Scheduler & Agent Skill for Volcengine Machine Learning Platform (MLP)"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+    { name = "volc-mlp contributors" }
+]
+keywords = ["volcengine", "machine-learning", "scheduler", "gpu", "ai-agent", "preemption", "slurm-alternative"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: System :: Distributed Computing",
+]
+dependencies = [
+    "pyyaml>=5.4",
+]
+
+[project.urls]
+Homepage = "https://github.com/SunnyYYLin/volc-mlp"
+Repository = "https://github.com/SunnyYYLin/volc-mlp"
+
+[project.scripts]
+mlp-sched = "scripts.mlp_sched:main"

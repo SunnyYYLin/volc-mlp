@@ -1,0 +1,21 @@
+# Configuration template for volc-mlp
+# Copy this file to config.local.yaml and fill in your Volcengine MLP cluster settings.
+# config.local.yaml is ignored by git and will never be uploaded to GitHub.
+
+# Volcengine Resource Queue ID (found in MLP Console -> Queues)
+queue_id: "q-your-resource-queue-id"
+
+# Your IAM Sub-User ID / Username
+user_id: "your-iam-user-id"
+
+# Shared vePFS storage mount path (optional)
+vepfs_mount: "/vepfs/your-project/your-username"
+
+# TOS Bucket for dataset / checkpoint storage (optional)
+tos_bucket: "your-tos-bucket-name"
+
+# Number of GPUs to reserve on local devinstance for interactive debug (default 0)
+dev_reserved_gpus: 0
+
+# Default risk aversion coefficient beta in [0, 1] (0 = aggressive / prefer preemptible, 1 = risk averse)
+beta: 0.3

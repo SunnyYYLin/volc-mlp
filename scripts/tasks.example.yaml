@@ -1,0 +1,39 @@
+# Volc MLP 动态分配输入任务样例 (M = f(g, s, DAG; beta))
+# 规则说明：
+# 1. 如果只填 (name, gpus, deps)，脚本会自动去 volc 查找你名下同名任务：
+#    - 若还没提交：自动视为 s_i = (queue="none", waited_min=0)
+#    - 若正在排队：自动填入所在的队列 (proj / pre) 和已排队分钟数 t_i
+#    - 若已在运行 (Running)：自动从待分配集合中排除
+#    - 若已成功结束 (Success)：自动解锁下游 deps 依赖
+# 2. 若想手动模拟/覆盖状态，可直接显式指定 queue 和 waited_min。
+
+config:
+  beta: 0.3                  # 风险厌恶系数 in [0, 1]（0=激进偏pre, 1=保守求稳），可被 CLI --beta 覆盖
+  dev_reserved_gpus: 0       # 本开发机预留给交互调试的卡数（默认 0）
+
+tasks:
+  # 场景 1：尚未提交的 2 卡任务（默认 queue="none", t=0），且下游有依赖它的任务
+  - name: "sft-stage1-2gpu"
+    gpus: 2
+    deps: []
+
+  # 场景 2：两个尚未提交的 4 卡并行实验（默认 queue="none", t=0）
+  - name: "rl-exp-a-4gpu"
+    gpus: 4
+    deps: []
+
+  - name: "rl-exp-b-4gpu"
+    gpus: 4
+    deps: []
+
+  # 场景 3：已经在 proj 队列里苦等了 95 分钟还没排上的 4 卡任务（触发超时转 pre 建议）
+  - name: "stuck-proj-4gpu"
+    gpus: 4
+    queue: "proj"
+    waited_min: 95
+    deps: []
+
+  # 场景 4：依赖 sft-stage1-2gpu 跑完才能开始的 8 卡评估/长训任务（当前将被 HOLD 在 none）
+  - name: "downstream-8gpu"
+    gpus: 8
+    deps: ["sft-stage1-2gpu"]

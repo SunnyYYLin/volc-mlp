@@ -1,0 +1,32 @@
+# SQLite databases & WAL logs (contains real cluster history, colleagues' tasks, and usernames)
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# Local private configuration (contains your personal IAM user ID, queue ID, and paths)
+config.local.yaml
+.env
+.env.local
+
+# Python cache & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+env/
+venv/
+build/
+dist/
+*.egg-info/
+
+# Temporary files & editor artifacts
+.DS_Store
+*.log
+tmp/
+.cache/
+.idea/
+.vscode/
+
+# Volc CLI local credentials (safeguard)
+.volc/

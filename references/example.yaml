@@ -1,0 +1,30 @@
+# 必填字段：
+TaskName: "example"
+Entrypoint: "nvidia-smi"
+# 镜像选择：
+# - 基础 CUDA 镜像: vemlp-cn-beijing.cr.volces.com/preset-images/cuda:12.8.1-py3.12-ubuntu22.04
+# - Isaac 任务镜像 (Isaac Sim / Isaac Lab): vemlp-cn-beijing.cr.volces.com/preset-images/physical-ai:isaacsim-v5.1.0_lab-v2.3.2
+ImageUrl: "vemlp-cn-beijing.cr.volces.com/preset-images/cuda:12.8.1-py3.12-ubuntu22.04"
+ResourceQueueID: "q-your-resource-queue-id"
+Framework: "Custom"
+TaskRoleSpecs:
+    - RoleName: "worker"
+      RoleReplicas: 1
+      Flavor: "ml.pni2.3xlarge"
+AccessType: "Private"
+Priority: 6
+RetryOptions:
+    EnableRetry: true
+    MaxRetryTimes: 64
+    IntervalSeconds: 60
+    PolicySets:
+        - InstanceReclaimed
+Preemptible: true
+Storages:
+    - Type: Vepfs
+      MountPath: /vepfs/your-project/your-username
+      SubPath: your-project/your-username
+    - Type: TosFuse
+      MountPath: /tos/your-tos-bucket
+      Bucket: your-tos-bucket
+      Prefix: /
